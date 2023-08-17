@@ -24,18 +24,20 @@ def roll_dice(num_rolls, dice=six_sided):
     "*** YOUR CODE HERE ***"
     count = 0
     sum = 0
+    flag = False
     while (count < num_rolls):
         cur_score = dice()
-        if cur_score != 1:
-            sum += cur_score
-        else:
-            return 1
+        if cur_score == 1:
+            flag = True
+        sum += cur_score
         count += 1
-    return sum
+    if flag:
+        return 1
+    else:
+        return sum
     # END PROBLEM 1
 
-if __name__ == "__main__":
-    print(roll_dice(4, make_test_dice(2, 2, 3)))
+
 def piggy_points(score):
     """Return the points scored from rolling 0 dice.
 
@@ -43,6 +45,17 @@ def piggy_points(score):
     """
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    square = score ** 2
+    if square < 10:
+        return square + 3
+    
+    min = 9
+    while square != 0:
+        digit = square % 10
+        square //= 10
+        if digit < min:
+            min = digit
+    return min + 3 
     # END PROBLEM 2
 
 
@@ -63,7 +76,42 @@ def take_turn(num_rolls, opponent_score, dice=six_sided, goal=GOAL_SCORE):
     assert opponent_score < goal, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    score = 0
+    # piggy_points
+    if num_rolls == 0:
+        score = piggy_points(opponent_score)
+    else:
+        score = roll_dice(num_rolls, dice)
+    return score
     # END PROBLEM 3
+
+def digits(n, base):
+    """Return the number of digits of the number N, in base BASE"""
+    if n == 0:
+        return 1
+    
+    count = 0
+    while n != 0:
+        count += 1
+        n //= base
+    return count
+
+
+def update_score(score, left_most_digit, base, digit):
+    """Return the new score while computing the digits"""
+    index = base ** (digit - 1)
+    if score >= index:
+        score = score - left_most_digit* (base ** (digit - 1))
+    return score
+
+
+def get_left_most_digit(score, base, digit):
+    """Return the left most digit"""
+    index = base ** (digit - 1)
+    if score < index:
+        return 0
+    else:
+        return score // index
 
 
 def more_boar(player_score, opponent_score):
@@ -85,6 +133,27 @@ def more_boar(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    num_digits_player = digits(player_score, 10)
+    num_digits_opponent = digits(opponent_score, 10)
+
+    num_digits = num_digits_player if num_digits_player > num_digits_opponent else num_digits_opponent
+
+    left_most_player = get_left_most_digit(player_score, 10, num_digits)
+    left_most_opponent = get_left_most_digit(opponent_score, 10, num_digits)
+    if left_most_player >= left_most_opponent:
+        return False
+    else:
+        player_score = update_score(player_score, left_most_player, 10, num_digits)
+        opponent_score = update_score(opponent_score, left_most_opponent, 10, num_digits)
+        num_digits_player = digits(player_score, 10)
+        num_digits_opponent = digits(opponent_score, 10)
+        num_digits = max(num_digits_player, num_digits_opponent)
+        second_most_player = get_left_most_digit(player_score, 10, num_digits)
+        second_most_opponent = get_left_most_digit(opponent_score, 10, num_digits)
+        if second_most_player < second_most_opponent:
+            return True
+        else:
+            return False
     # END PROBLEM 4
 
 
@@ -124,6 +193,32 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    while score0 < goal and score1 < goal:
+        # player 0
+        if who == 0:
+            num_rolls = strategy0(score0, score1)
+            score0 += take_turn(num_rolls, score1, dice, goal)
+            if score0 >= 100:
+                break
+            while more_boar(score0, score1):
+                num_rolls = strategy0(score0, score1)
+                score0 += take_turn(num_rolls, score1, dice, goal)
+                if score0 >= 100:
+                    break
+            who = next_player(who)
+        
+        else:
+            num_rolls = strategy1(score1, score0)
+            score1 += take_turn(num_rolls, score0, dice, goal)
+            if score1 >= 100:
+                break
+            while more_boar(score1, score0):
+                num_rolls = strategy1(score1, score0)
+                score1 += take_turn(num_rolls, score0, dice, goal)
+                
+                if score1 >= 100:
+                    break
+            who = next_player(who)
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
