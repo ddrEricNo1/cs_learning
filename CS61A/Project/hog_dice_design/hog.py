@@ -22,19 +22,6 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
-    count = 0
-    sum = 0
-    flag = False
-    while (count < num_rolls):
-        cur_score = dice()
-        if cur_score == 1:
-            flag = True
-        sum += cur_score
-        count += 1
-    if flag:
-        return 1
-    else:
-        return sum
     # END PROBLEM 1
 
 
@@ -45,17 +32,6 @@ def piggy_points(score):
     """
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
-    square = score ** 2
-    if square < 10:
-        return square + 3
-    
-    min = 9
-    while square != 0:
-        digit = square % 10
-        square //= 10
-        if digit < min:
-            min = digit
-    return min + 3 
     # END PROBLEM 2
 
 
@@ -76,42 +52,7 @@ def take_turn(num_rolls, opponent_score, dice=six_sided, goal=GOAL_SCORE):
     assert opponent_score < goal, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
-    score = 0
-    # piggy_points
-    if num_rolls == 0:
-        score = piggy_points(opponent_score)
-    else:
-        score = roll_dice(num_rolls, dice)
-    return score
     # END PROBLEM 3
-
-def digits(n, base):
-    """Return the number of digits of the number N, in base BASE"""
-    if n == 0:
-        return 1
-    
-    count = 0
-    while n != 0:
-        count += 1
-        n //= base
-    return count
-
-
-def update_score(score, left_most_digit, base, digit):
-    """Return the new score while computing the digits"""
-    index = base ** (digit - 1)
-    if score >= index:
-        score = score - left_most_digit* (base ** (digit - 1))
-    return score
-
-
-def get_left_most_digit(score, base, digit):
-    """Return the left most digit"""
-    index = base ** (digit - 1)
-    if score < index:
-        return 0
-    else:
-        return score // index
 
 
 def more_boar(player_score, opponent_score):
@@ -133,12 +74,6 @@ def more_boar(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
-    ps = str(player_score) if player_score >= 10 else '0' + str(player_score)
-    os = str(opponent_score) if opponent_score >= 10 else '0' + str(opponent_score)
-    if ps[0] < os[0] and ps[1] < os[1]:
-        return True
-    else:
-        return False
     # END PROBLEM 4
 
 
@@ -178,24 +113,10 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
-    while score0 < goal and score1 < goal:
-        # player 0
-        if who == 0:
-            num_rolls = strategy0(score0, score1)
-            score0 += take_turn(num_rolls, score1, dice, goal)
-            if not more_boar(score0, score1):
-                who = next_player(who)
-        
-        else:
-            num_rolls = strategy1(score1, score0)
-            score1 += take_turn(num_rolls, score0, dice, goal)
-            if not more_boar(score1, score0):
-                who = next_player(who)
     # END PROBLEM 5
-        # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
-        # BEGIN PROBLEM 6
-        "*** YOUR CODE HERE ***"
-        say = say(score0, score1)
+    # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
+    # BEGIN PROBLEM 6
+    "*** YOUR CODE HERE ***"
     # END PROBLEM 6
     return score0, score1
 
@@ -257,7 +178,6 @@ def both(f, g):
         return both(f(score0, score1), g(score0, score1))
     return say
 
-
 def announce_highest(who, last_score=0, running_high=0):
     """Return a commentary function that announces when WHO's score
     increases by more than ever before in the game.
@@ -280,20 +200,6 @@ def announce_highest(who, last_score=0, running_high=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
-    def say(score0, score1):
-        # get the current score for player WHO at this turn
-        score = score0 if who == 0 else score1
-        # check whether the current score increase is higher than running_high
-        
-        increase = score - last_score
-        cur_high = running_high
-        cur_score = score
-
-        if increase > running_high:
-            print("Player", who, "has reached a new maximum point gain.", increase, "point(s)!")
-            cur_high = increase
-        return announce_highest(who, cur_score, cur_high)
-    return say
     # END PROBLEM 7
 
 
@@ -334,13 +240,6 @@ def make_averaged(original_function, trials_count=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
-    def f(*args):
-        sum = 0
-        for _ in range(trials_count):
-            sum += original_function(*args)
-        sum /= trials_count
-        return sum
-    return f
     # END PROBLEM 8
 
 
@@ -355,16 +254,6 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
-    averaged_dice = make_averaged(roll_dice, trials_count)
-    # to store the maximum score
-    score_max = 0
-    max_roll = 0
-    for i in range(1, 11):
-        cur_score = averaged_dice(i, dice)
-        if cur_score > score_max:
-            score_max = cur_score
-            max_roll = i
-    return max_roll
     # END PROBLEM 9
 
 
@@ -400,13 +289,13 @@ def run_experiments():
     "*** You may add additional experiments as you wish ***"
 
 
+
 def piggypoints_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     """This strategy rolls 0 dice if that gives at least CUTOFF points, and
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    zero_score = piggy_points(opponent_score)
-    return 0 if zero_score >= cutoff else num_rolls
+    return 6  # Replace this statement
     # END PROBLEM 10
 
 
@@ -416,25 +305,16 @@ def more_boar_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    add_points = piggy_points(opponent_score)
-    assume_score = score + add_points
-    if more_boar(assume_score, opponent_score):
-        return 0
-    return piggypoints_strategy(score, opponent_score, cutoff, num_rolls)
+    return 6  # Replace this statement
     # END PROBLEM 11
 
-if __name__ == "__main__":
-    print(more_boar_strategy(96, 56, cutoff=13, num_rolls=7))
-    
+
 def final_strategy(score, opponent_score):
     """Write a brief description of your final strategy.
 
     *** YOUR DESCRIPTION HERE ***
-    define a ratio which is calculated by divide the maximum score based on the current situation versus the best score
-    for the opponent if I choose the strategy which is used to bobtain the maximum score. The strategy is to get the highest ratio
     """
     # BEGIN PROBLEM 12
-    
     return 6  # Replace this statement
     # END PROBLEM 12
 
