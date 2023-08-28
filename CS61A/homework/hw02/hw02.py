@@ -31,6 +31,10 @@ def product(n, term):
     162
     """
     "*** YOUR CODE HERE ***"
+    sum = 1
+    for i in range(1, n + 1):
+        sum *= term(i)
+    return sum
 
 
 def square(x):
@@ -60,6 +64,9 @@ def accumulate(combiner, base, n, term):
     16
     """
     "*** YOUR CODE HERE ***"
+    for i in range(1, n + 1):
+        base = combiner(base, term(i))
+    return base
 
 
 def summation_using_accumulate(n, term):
@@ -77,6 +84,7 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 
 def product_using_accumulate(n, term):
@@ -93,6 +101,7 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 
 def compose1(func1, func2):
@@ -118,6 +127,18 @@ def make_repeater(func, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    # the easy way to implement make_repeater
+#    def repeater(num):
+#        if n == 0:
+#            return num
+#        else:
+#            for i in range(n):
+#                num = func(num)
+#        return num
+#    return repeater
+    
+    # extra challenge, defining make_repeater using compose1 and accumulate function in a single one-line return statement
+    return accumulate(compose1, identity, n, lambda x: func)
 
 
 def zero(f):
@@ -131,11 +152,12 @@ def successor(n):
 def one(f):
     """Church numeral 1: same as successor(zero)"""
     "*** YOUR CODE HERE ***"
-
+    return lambda x: f(x)
 
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
     "*** YOUR CODE HERE ***"
+    return lambda x: f(f(x))
 
 
 three = successor(two)
@@ -154,6 +176,8 @@ def church_to_int(n):
     3
     """
     "*** YOUR CODE HERE ***"
+    f = lambda x: x + 1
+    return n(f)(0)
 
 
 def add_church(m, n):
@@ -163,6 +187,7 @@ def add_church(m, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: n(f)(m(f)(x))
 
 
 def mul_church(m, n):
@@ -175,6 +200,7 @@ def mul_church(m, n):
     12
     """
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: m(f)(x) * n(f)(x)
 
 
 def pow_church(m, n):
@@ -186,3 +212,4 @@ def pow_church(m, n):
     9
     """
     "*** YOUR CODE HERE ***"
+    return lambda f: lambda x: m(f)(x) ** n(f)(x)
