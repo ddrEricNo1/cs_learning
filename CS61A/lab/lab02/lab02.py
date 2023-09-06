@@ -46,7 +46,13 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
-
+    def f(n):
+        counter = 0
+        for i in range(1, n + 1):
+            if condition(n, i):
+                counter += 1
+        return counter
+    return f
 
 def compose1(f, g):
     """Return the composition function which given x, computes f(g(x)).
@@ -81,7 +87,7 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
-
+    return lambda x: compose1(f, g)(x) == compose1(g, f)(x)
 
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
@@ -110,3 +116,18 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
+    def f(n):
+        def result(x):
+            if n == 0:
+                return x
+            func = f1
+            for i in range(2, n + 1):
+                if i % 3 == 1:
+                    func = compose1(f1, func)
+                if i % 3 == 2:
+                    func = compose1(f2, func)
+                elif i % 3 == 0:
+                    func = compose1(f3, func)
+            return func(x)
+        return result
+    return f 
