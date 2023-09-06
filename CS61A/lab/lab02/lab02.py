@@ -15,7 +15,7 @@ def lambda_curry2(func):
     3
     """
     "*** YOUR CODE HERE ***"
-    return 
+    return lambda x: lambda y: func(x, y)
 
 
 def count_cond(condition):
