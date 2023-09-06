@@ -14,7 +14,7 @@ def count_leaves(t):
     if is_leaf(t):
         return 1
     else:
-        return sum(count_leaves(t) for t in children(tree))
+        return sum([count_leaves(t) for t in children(tree)])
 
 if __name__ == "__main__":
     t = tree(20, [tree(12, 

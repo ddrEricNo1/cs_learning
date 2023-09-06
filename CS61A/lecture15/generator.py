@@ -5,3 +5,8 @@ def a_then_b(a, b):
         yield item
 
 list(a_then_b(["Apples", "Aardvarks"], ["Bananas", "BEARS"]))
+
+def a_then_b2(a, b):
+    yield from a
+    yield from b
+
