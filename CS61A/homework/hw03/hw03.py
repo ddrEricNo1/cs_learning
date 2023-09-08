@@ -23,6 +23,10 @@ def num_eights(x):
     True
     """
     "*** YOUR CODE HERE ***"
+    if x < 10:
+        return 1 if x == 8 else 0
+    else:
+        return num_eights(x // 10) + num_eights(x % 10)
 
 
 def pingpong(n):
@@ -58,7 +62,15 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    def helper(i, val, direction):
+        if i == n:
+            return val
+        elif num_eights(i) != 0 or i % 8 == 0:
+            # change the direction
+            return helper(i + 1, val - direction, direction * -1)
+        else:
+            return helper(i + 1, val + direction, direction)
+    return helper(1, 1, 1)
 
 def missing_digits(n):
     """Given a number a that is in sorted, increasing order,
@@ -89,7 +101,16 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    # base case
+    if n < 10:
+        return 0
+    else:
+        sub_case = n // 10
+        sub_last_digit = sub_case % 10
+        last_digit = n % 10
+        result = last_digit - sub_last_digit - 1 if last_digit > sub_last_digit + 1 else 0
+        return missing_digits(sub_case) + result
+      
 
 def get_next_coin(coin):
     """Return the next coin. 
@@ -125,8 +146,22 @@ def count_coins(change):
     True
     """
     "*** YOUR CODE HERE ***"
-
-
+    def helper(n, smallest_coin):
+        # 这种情况表示需要兑换的货币为0，此时返回1，表示有一种方法，就是剩下的货币全部都不选
+        if n == 0:
+            return 1
+        # 这种情况表示剩余的钱还有，但最高的货币已经到顶，无法继续兑换
+        elif smallest_coin == None:
+            return 0
+        elif n < smallest_coin:
+            return 0
+        with_smalletst = helper(n - smallest_coin, smallest_coin)
+        without_smallest = helper(n, get_next_coin(smallest_coin))
+        return with_smalletst + without_smallest
+    
+    return helper(change, 1)
+        
+        
 from operator import sub, mul
 
 
@@ -140,7 +175,7 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return lambda n: (lambda x, func: 1 if x == 1 else x * func(x - 1, func))(n, lambda x, func: 1 if x == 1 else x * func(x - 1, func))
 
 
 def print_move(origin, destination):
@@ -177,3 +212,8 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    if n == 0:
+        return
+    move_stack(n - 1, start, 6 - start - end)
+    print_move(start, end)
+    move_stack(n - 1, 6 - start - end, end)
