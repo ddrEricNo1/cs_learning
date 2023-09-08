@@ -31,6 +31,8 @@ def choose(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    results = [para for para in paragraphs if select(para) == True]
+    return results[k] if k < len(results) else ''
     # END PROBLEM 1
 
 
@@ -50,9 +52,16 @@ def about(topic):
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def check(para):
+        word_split = [lower(item) for item in split(remove_punctuation(para))]
+        for x in topic:
+            if x in word_split:
+                return True
+        return False
+    return check
     # END PROBLEM 2
 
-
+    
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
     when compared to the prefix of REFERENCE that was typed.
@@ -80,6 +89,17 @@ def accuracy(typed, reference):
     reference_words = split(reference)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    total = len(typed_words)
+    ref_length = len(reference_words)
+    if total == 0 and ref_length == 0:
+        return 100.0
+    elif total == 0:
+        return 0.0
+    pairs = zip(typed_words, reference_words)
+    counter = 0
+    for t, r in pairs:
+        counter += (1 if t == r else 0)
+    return 100 * counter / total
     # END PROBLEM 3
 
 
@@ -98,6 +118,8 @@ def wpm(typed, elapsed):
     assert elapsed > 0, 'Elapsed time must be positive'
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    num_char = len(typed)
+    return num_char * 12 / elapsed 
     # END PROBLEM 4
 
 
@@ -125,6 +147,14 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    if typed_word in valid_words:
+        return typed_word
+    scores = [diff_function(typed_word, x, limit) for x in valid_words]
+    word, similar_diff = min(zip(valid_words, scores), key=lambda item: item[1])
+    if similar_diff > limit:
+        return typed_word
+    else:
+        return word
     # END PROBLEM 5
 
 
@@ -151,9 +181,21 @@ def sphinx_switches(start, goal, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    start_len = len(start)
+    goal_len = len(goal)
+    if start_len == 0:
+        return goal_len
+    elif goal_len == 0:
+        return start_len
+    elif start[0] != goal[0]:
+        # 最开始的字符仍然不同，但已经等于最大的不同字符数的限制
+        if limit == 0:
+            return 1
+        return 1 + sphinx_switches(start[1: ], goal[1: ], limit - 1)
+    else:
+        return sphinx_switches(start[1: ], goal[1: ], limit)
     # END PROBLEM 6
-
+   
 
 def pawssible_patches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL.
@@ -172,24 +214,30 @@ def pawssible_patches(start, goal, limit):
     >>> pawssible_patches("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
-
-    if ______________:  # Fill in the condition
+    start_len = len(start)
+    goal_len = len(goal)
+    if limit < 0:  # Fill in the condition
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return 0
         # END
 
-    elif ___________:  # Feel free to remove or add additional cases
+    # 这一部分全部都需要add
+    elif start_len == 0 or goal_len == 0:  # Feel free to remove or add additional cases
         # BEGIN
         "*** YOUR CODE HERE ***"
+        return start_len + goal_len
         # END
 
+    elif start[0] == goal[0]:
+        return pawssible_patches(start[1: ], goal[1: ], limit)
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
         # BEGIN
         "*** YOUR CODE HERE ***"
+        add = 1 + pawssible_patches(start, goal[1: ], limit - 1)
+        remove = 1 + pawssible_patches(start[1: ], goal, limit - 1)
+        substitue = 1 + pawssible_patches(start[1: ], goal[1: ], limit - 1)
+        return min(add, remove, substitue)
         # END
 
 
@@ -232,6 +280,16 @@ def report_progress(typed, prompt, user_id, send):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    correct_counter = 0
+    for item in zip(typed, prompt):
+        if item[0] == item[1]:
+            correct_counter += 1
+        else:
+            break
+
+    result = correct_counter / len(prompt)
+    send({"id": user_id, "progress": result})
+    return result
     # END PROBLEM 8
 
 
@@ -265,6 +323,8 @@ def time_per_word(times_per_player, words):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    times = [[row[j + 1] - row[j] for j in range(len(row) - 1)] for row in times_per_player]
+    return game(words, times)
     # END PROBLEM 9
 
 
@@ -283,6 +343,16 @@ def fastest_words(game):
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    # initialize 
+    results = []
+    times = all_times(game)
+    for _ in range(len(player_indices)):
+        results.append([])
+    for i, word in enumerate(all_words(game)):
+        word_times = [times[player][i] for player in player_indices]
+        idx = min(player_indices, key=lambda x: word_times[x])
+        results[idx].append(word)
+    return results
     # END PROBLEM 10
 
 
