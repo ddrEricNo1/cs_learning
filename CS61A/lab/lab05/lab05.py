@@ -12,7 +12,7 @@ def couple(s, t):
     """
     assert len(s) == len(t)
     "*** YOUR CODE HERE ***"
-
+    return [[s[i], t[i]] for i in range(len(s))]
 
 from math import sqrt
 
@@ -29,6 +29,7 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    return sqrt((get_lat(city_a) - get_lat(city_b)) ** 2 + (get_lon(city_a) - get_lon(city_b)) ** 2)
 
 
 def closer_city(lat, lon, city_a, city_b):
@@ -47,6 +48,8 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    target_city = make_city("goal", lat, lon)
+    return get_name(city_a) if distance(city_a, target_city) <= distance(city_b, target_city) else get_name(city_b)
 
 
 def check_city_abstraction():
@@ -152,6 +155,16 @@ def berry_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
+    # 是叶子节点，但节点值不为berry
+    if is_leaf(t) and label(t) != 'berry':
+        return False
+    # 是叶子节点，并且节点值为berry
+    elif label(t) == 'berry':
+        return True
+    else:
+        # 平常节点，遍历每一个节点并递归调用berry_finder函数，如果任意一个值为True则返回True
+        results = [(1 if berry_finder(child) == True else 0) for child in branches(t)]
+        return False if sum(results) == 0 else True
 
 
 def sprout_leaves(t, leaves):
@@ -188,6 +201,14 @@ def sprout_leaves(t, leaves):
           2
     """
     "*** YOUR CODE HERE ***"
+    # 如果当前遍历到叶子节点，直接在基础之上改动
+    if is_leaf(t):
+        return tree(label(t), branches=[tree(x) for x in leaves])
+    else:
+        # 没有遍历到叶子节点
+        cur_label = label(t)
+        return tree(cur_label, [sprout_leaves(child, leaves) for child in branches(t)])
+            
 
 # Abstraction tests for sprout_leaves and berry_finder
 
@@ -248,7 +269,7 @@ def coords(fn, seq, lower, upper):
     [[-2, 4], [1, 1], [3, 9]]
     """
     "*** YOUR CODE HERE ***"
-    return ______
+    return [[x, fn(x)] for x in seq if fn(x) <= upper and fn(x) >= lower]
 
 
 def riffle(deck):
@@ -261,7 +282,7 @@ def riffle(deck):
     [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
     """
     "*** YOUR CODE HERE ***"
-    return _______
+    return [deck[i // 2 + (len(deck)) // 2 * (i % 2)] for i in range(len(deck))]
 
 
 def add_trees(t1, t2):
@@ -300,6 +321,14 @@ def add_trees(t1, t2):
       5
     """
     "*** YOUR CODE HERE ***"
+    # 如果都为空,返回空值
+    if t1 == None and t2 == None:
+        return None
+    # 如果只是其中一个空了，但另外一棵树不空
+    elif t1 == None or t2 == None:
+        return t2 if t1 == None else t1
+    else:
+        return tree()
 
 
 def build_successors_table(tokens):

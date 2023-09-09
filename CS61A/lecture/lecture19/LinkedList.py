@@ -31,6 +31,16 @@ def map_link(f, ll):
         return Link(f(ll.first), map_link(ll.rest))
 
 
+def insert_front(linked_list, new_val):
+    """Inserts NEW_VAL in front of LINKED_LIST, 
+    returning new linked list
+    >>> ll = Link(1, Link(3, Link(5)))
+    >>> insert_front(ll, 0)
+    Link(0, Link(1, Link(3, Link(5))))
+    """
+    return Link(new_val, linked_list)
+
+
 if __name__ == "__main__":
     l1 = Link("A", Link("B", Link("C")))
     print(l1) 
