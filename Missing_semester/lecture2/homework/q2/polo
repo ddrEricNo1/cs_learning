@@ -1,0 +1,4 @@
+#!/bin/sh
+path=$(cat < /Users/eric/Desktop/cs_learning/Missing_semester/lecture2/homework/q2/tmp_dir.txt)
+echo "$path"
+cd "$path"

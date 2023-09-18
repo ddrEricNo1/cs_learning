@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
 * {}
 
-  匹配制定次数
+  匹配指定次数
 
   > 红彤彤，绿油油，黑乎乎，绿油油油油
 
@@ -526,5 +526,5 @@ print(newStr)
   from urlib.parse import quote
   quote('2019-04-13 NEWSworthy Clips.mp3')
   # >>> '2019-04-13%20NEWSworthy%20Clips.mp3'```
-
+  
   

@@ -327,8 +327,11 @@ def add_trees(t1, t2):
     # 如果只是其中一个空了，但另外一棵树不空
     elif t1 == None or t2 == None:
         return t2 if t1 == None else t1
+    
     else:
-        return tree()
+        # 两棵树都不为空
+
+        return tree(label(t1) + label(t2), )
 
 
 def build_successors_table(tokens):

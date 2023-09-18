@@ -1,0 +1,4 @@
+#!/bin/sh
+path=$(cat << ./tmp_dir.txt)
+cd path
+echo "successfully jump to the path $(path)"

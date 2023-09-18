@@ -1,0 +1,4 @@
+#!/bin/sh
+path=$(pwd)
+echo "$path" > /Users/eric/Desktop/cs_learning/Missing_semester/lecture2/homework/q2/tmp_dir.txt
+

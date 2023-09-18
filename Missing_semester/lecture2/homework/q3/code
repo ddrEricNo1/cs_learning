@@ -1,0 +1,11 @@
+count=0
+res=true
+while ($res == true)
+do
+    sh script
+    if [[ $? -eq 1 ]]; then
+        echo "fail at "$count" times"
+        res=false
+    fi
+    ((count+=1))
+done
