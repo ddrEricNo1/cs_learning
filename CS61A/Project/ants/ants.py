@@ -180,6 +180,8 @@ class ThrowerAnt(Ant):
     damage = 1
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
     food_cost = 3
+    max_range = float('inf')
+    min_range = 0
 
     def nearest_bee(self, beehive):
         """Return the nearest Bee in a Place that is not the HIVE (beehive), connected to
@@ -189,10 +191,12 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         current = self.place
+        distance = 0
         while current is not beehive: 
-            if current.bees:
+            if self.min_range <= distance <= self.max_range and current.bees:
                 return bee_selector(current.bees)
             current = current.entrance
+            distance += 1
         return None
         # END Problem 3 and 4
 
@@ -224,7 +228,9 @@ class ShortThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    min_range = 0
+    max_range = 3
+    implemented = True   # Change to True to view in the GUI
     # END Problem 4
 
 
@@ -235,7 +241,8 @@ class LongThrower(ThrowerAnt):
     food_cost = 2
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    min_range = 5
+    implemented = True   # Change to True to view in the GUI
     # END Problem 4
 
 
@@ -247,7 +254,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 5
 
     def __init__(self, health=3):
@@ -263,14 +270,52 @@ class FireAnt(Ant):
         """
         # BEGIN Problem 5
         "*** YOUR CODE HERE ***"
+        attack = amount
+        # 下一攻击就要死掉
+        if self.health <= amount:
+            attack += self.damage
+        # 反弹伤害
+        bees = self.place.bees
+        # 当前格子中有蜜蜂
+        if bees:
+            lst = bees[:]
+            for bee in lst:
+                bee.reduce_health(attack) 
+        super().reduce_health(amount)
+        
         # END Problem 5
 
 # BEGIN Problem 6
 # The WallAnt class
+class WallAnt(Ant):
+    name = "Wall"
+    implemented = True
+    food_cost = 4
+
+    def __init__(self, health=4):
+        super().__init__(health)
 # END Problem 6
 
 # BEGIN Problem 7
 # The HungryAnt Class
+class HungryAnt(Ant):
+    name = "Hungry"
+    implemented = True
+    chew_duration = 3
+    food_cost = 4
+
+    def __init__(self, health=1):
+        self.chewing = 0
+        super().__init__(health)
+    
+    def action(self, gamestate):
+        if self.chewing == 0:
+            if self.place.bees:
+                bee = bee_selector(self.place.bees)
+                bee.reduce_health(bee.health)
+                self.chewing = HungryAnt.chew_duration
+        else:
+            self.chewing -= 1
 # END Problem 7
 
 
