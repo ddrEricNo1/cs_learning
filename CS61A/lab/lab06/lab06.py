@@ -16,6 +16,15 @@ def insert_items(lst, entry, elem):
     True
     """
     "*** YOUR CODE HERE ***"
+    index = 0
+    size = len(lst)
+    while index < size:
+        if lst[index] == entry:
+            lst.insert(index + 1, elem)
+            index += 1
+            size += 1
+        index += 1
+    return lst
 
 
 def naturals():
@@ -48,7 +57,8 @@ def scale(it, multiplier):
     [2, 4, 6, 8, 10]
     """
     "*** YOUR CODE HERE ***"
-
+    for i in it:
+        yield i * multiplier
 
 def hailstone(n):
     """Yields the elements of the hailstone sequence starting at n.
@@ -65,3 +75,10 @@ def hailstone(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    while n != 1:
+        yield n
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = 3 * n + 1
+    yield 1

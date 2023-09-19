@@ -26,6 +26,8 @@ class Place:
         # Phase 1: Add an entrance to the exit
         # BEGIN Problem 2
         "*** YOUR CODE HERE ***"
+        if exit is not None:
+            exit.entrance = self
         # END Problem 2
 
     def is_hive(self):
@@ -65,7 +67,9 @@ class Insect:
         has no health remaining.
 
         >>> test_insect = Insect(5)
-        >>> test_insect.reduce_health(2)
+        >>> test_insect.reduce_health(2)def generator():
+        m = next(iter(it))
+        yield m * multiplier
         >>> test_insect.health
         3
         """
@@ -155,6 +159,7 @@ class HarvesterAnt(Ant):
     name = 'Harvester'
     implemented = True
     # OVERRIDE CLASS ATTRIBUTES HERE
+    food_cost = 2
 
     def action(self, gamestate):
         """Produce 1 additional food for the colony.
@@ -163,6 +168,7 @@ class HarvesterAnt(Ant):
         """
         # BEGIN Problem 1
         "*** YOUR CODE HERE ***"
+        gamestate.food += 1
         # END Problem 1
 
 
@@ -173,6 +179,7 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
+    food_cost = 3
 
     def nearest_bee(self, beehive):
         """Return the nearest Bee in a Place that is not the HIVE (beehive), connected to
@@ -181,7 +188,12 @@ class ThrowerAnt(Ant):
         This method returns None if there is no such Bee (or none in range).
         """
         # BEGIN Problem 3 and 4
-        return bee_selector(self.place.bees)  # REPLACE THIS LINE
+        current = self.place
+        while current is not beehive: 
+            if current.bees:
+                return bee_selector(current.bees)
+            current = current.entrance
+        return None
         # END Problem 3 and 4
 
     def throw_at(self, target):
