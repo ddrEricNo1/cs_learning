@@ -134,6 +134,20 @@ def reverse_other(t):
     Tree(1, [Tree(8, [Tree(3, [Tree(5), Tree(4)]), Tree(6, [Tree(7)])]), Tree(2)])
     """
     "*** YOUR CODE HERE ***"
+    def helper(t, leaves_need_reverse):
+        if t.is_leaf():
+            return t
+        if leaves_need_reverse:
+            old_labels = []
+            for b in t.branches:
+                old_labels.append(b.label)
+            old_labels = list(reversed(old_labels))
+            for i in range(len(old_labels)):
+                t.branches[i].label = old_labels[i]
+        for b in t.branches:
+            helper(b, not leaves_need_reverse)
+    
+    helper(t, True)
 
 
 class Link:
