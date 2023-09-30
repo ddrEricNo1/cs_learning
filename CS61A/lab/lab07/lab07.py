@@ -56,6 +56,14 @@ def has_cycle(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    visited = []
+    while link is not Link.empty:
+        if link not in visited:
+            visited.append(link)
+            link = link.rest
+        else:
+            return True
+    return False
 
 
 def has_cycle_constant(link):
@@ -70,6 +78,15 @@ def has_cycle_constant(link):
     False
     """
     "*** YOUR CODE HERE ***"
+    if link is Link.empty:
+        return False
+    fast, slow = link, link
+    while fast.rest is not Link.empty and fast.rest.rest is not Link.empty:
+        fast = fast.rest.rest
+        slow = slow.rest
+        if fast is slow:
+            return True 
+    return False
 
 
 def every_other(s):
@@ -90,7 +107,18 @@ def every_other(s):
     Link(4)
     """
     "*** YOUR CODE HERE ***"
-
+    if s is Link.empty:
+        return s
+    count = 1
+    before = s
+    s = s.rest
+    while s is not Link.empty:
+        if count % 2 == 1:
+            before.rest = s.rest
+        else:
+            before = before.rest
+        s = s.rest
+        count += 1
 
 def reverse_other(t):
     """Mutates the tree such that nodes on every other (odd-depth) level
