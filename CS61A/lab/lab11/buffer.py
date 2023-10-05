@@ -47,4 +47,5 @@ class Buffer:
             return actual
 
     def __str__(self):
+        """Return the string representation of the buffer beginning from INDEX"""
         return str(self.source[self.index:])
