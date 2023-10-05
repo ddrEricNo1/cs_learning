@@ -12,11 +12,11 @@ int main() {
 	\\表示反斜杠
 	printf("c:\\test\\test.c");
 	*/
-	printf("c:\test\test.c");    
-	printf("\a");
+	printf("c:\test\test.c\n");
 	
 	// \ddd表示1-3个八进制的数字
 	// \xdd表示2个十六进制的数字
 	printf("%c\n", '\130');
+	printf("%c\n", '\x30');
     return 0;
 }
