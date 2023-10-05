@@ -30,8 +30,12 @@ if __name__ == '__main__':
                     print(repr(expr))
                 else:
                     print(expr.eval(global_env))
-        except (SyntaxError, NameError, TypeError) as err:
-            print(type(err).__name__ + ':', err)
+        except SyntaxError as err:
+            print("your syntax is wrong")
+        except NameError as err:
+            print("variable not defined")
+        except TypeError as err:
+            print("type error")
         except (KeyboardInterrupt, EOFError):  # Ctrl-C, Ctrl-D
             print()  # blank line
             break  # exit while loop (and end program)
