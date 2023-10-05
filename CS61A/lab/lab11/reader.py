@@ -1,3 +1,7 @@
+"""reader.py contains our interpreter's reader. The function read calls the functions tokenize and read_expr to turn an expression
+string into an Expr object.
+"""
+
 import string
 
 from buffer import Buffer
@@ -89,8 +93,12 @@ def read_expr(src):
     if token is None:
         raise SyntaxError('Incomplete expression')
     elif is_literal(token):
+        # token is an instance of int or float data type
         return read_call_expr(src, Literal(token))
     elif is_name(token):
+        # token is an instance of string, and token isn't in DELIMITERS
+        # DELIMITERS: {'(', ')', ',', ':'}
+        # and token isn't 'lambda' string
         return read_call_expr(src, Name(token))
     elif token == 'lambda':
         params = read_comma_separated(src, read_param)

@@ -1,3 +1,9 @@
+"""expr.py contains our interpreter's representation of expressions and values. The subclass of Expr
+and Value encapsulate all the types of expressions and values in the PyCombinator language. The global 
+environment, a directory containing the bindings of primitive functions, is also defined at the bottom of
+the file.
+"""
+
 import operator
 
 from utils import comma_separated

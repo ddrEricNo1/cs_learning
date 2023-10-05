@@ -1,3 +1,7 @@
+"""repl.py contains the logic for REPL loop, which repeatedly reads expressions as user input,
+evaluates them, and prints out their values
+"""
+
 try:
     import readline  # history and arrow keys for CLI
 except ImportError:
