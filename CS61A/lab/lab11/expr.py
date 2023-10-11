@@ -43,7 +43,7 @@ class Expr:
         evaluated.  This method should return a `Value` instance, the result of
         evaluating the expression.
         """
-        raise NotImplementedError
+        
 
     def __str__(self):
         """
