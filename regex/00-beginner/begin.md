@@ -311,7 +311,15 @@ for one in p.findall(content):
     print(one)
 ```
 
+* []
 
+  character class
+
+  A pattern of the form [c1, c2, c3], where each ci is a character, is called a character class and matches any one of the character ci.
+
+  Inside a character class, c1-c2 is short for all the characters between c1 and c2, inclusive. 
+
+  A character class of the form begining with ^ matches any one character that isn't one of the characters ci.   
 
 * $
 
