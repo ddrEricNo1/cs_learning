@@ -36,6 +36,10 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
+        operator = scheme_eval(first, env)
+        validate_procedure(operator)
+        operands = rest.map(lambda x: scheme_eval(x, env))
+        return scheme_apply(operator, operands, env)
         # END PROBLEM 4
 
 
@@ -48,8 +52,12 @@ def scheme_apply(procedure, args, env):
     """Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
     Frame ENV, the current environment."""
     validate_procedure(procedure)
+    # check whether the procesure is a built-in procedure, if true, apply that procesure
+    # in the current environment
     if isinstance(procedure, BuiltinProcedure):
         return procedure.apply(args, env)
+    # if the procesure isn't a built-in procesure, apply that procesure in a newly-created
+    # environment
     else:
         new_env = procedure.make_call_frame(args, env)
         return eval_all(procedure.body, new_env)
@@ -97,12 +105,18 @@ class Frame:
         """Define Scheme SYMBOL to have VALUE."""
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        self.bindings[symbol] = value
         # END PROBLEM 2
 
     def lookup(self, symbol):
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        val = self.bindings.get(symbol)
+        if val is not None:
+            return val
+        elif self.parent is not None:
+            return self.parent.lookup(symbol)
         # END PROBLEM 2
         raise SchemeError('unknown identifier: {0}'.format(symbol))
 
@@ -141,6 +155,12 @@ class BuiltinProcedure(Procedure):
     """A Scheme procedure defined as a Python function."""
 
     def __init__(self, fn, use_env=False, name='builtin'):
+        """
+        fn: python function that implements the built-in Scheme procedure
+        use_env: a Boolean flg that indicates whether or not this built-in 
+        procedure will expect the current environment to be passed in as the last argument.
+        The environment is required, for instance, to implement the built-in eval procedure.
+        """
         self.name = name
         self.fn = fn
         self.use_env = use_env
@@ -163,6 +183,12 @@ class BuiltinProcedure(Procedure):
         arguments_list = []
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        cur = args
+        while cur is not nil:
+            arguments_list.append(cur.first)
+            cur = cur.rest
+        if self.use_env:
+            arguments_list.append(env)
         # END PROBLEM 3
         try:
             return self.fn(*arguments_list)
