@@ -79,7 +79,14 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 7
-    return scheme_eval(expressions.first, env)  # replace this with lines of your own code
+    if expressions is nil:
+        return None
+    else:
+        cur = expressions
+        while cur.rest is not nil:
+            scheme_eval(cur.first, env)
+            cur = cur.rest
+    return scheme_eval(cur.first, env)
     # END PROBLEM 7
 
 ################
@@ -136,6 +143,17 @@ class Frame:
             raise SchemeError('Incorrect number of arguments to function call')
         # BEGIN PROBLEM 10
         "*** YOUR CODE HERE ***"
+        new_frame = Frame(self)
+        if formals is nil:
+            return new_frame
+        formals_ptr = formals
+        vals_ptr = vals
+        while formals_ptr.rest is not nil:
+            new_frame.define(formals_ptr.first, vals_ptr.first)
+            formals_ptr = formals_ptr.rest
+            vals_ptr = vals_ptr.rest
+        new_frame.define(formals_ptr.first, vals_ptr.first)
+        return new_frame
         # END PROBLEM 10
 
 ##############
@@ -215,6 +233,7 @@ class LambdaProcedure(Procedure):
         of values, for a lexically-scoped call evaluated in Frame ENV, the environment."""
         # BEGIN PROBLEM 11
         "*** YOUR CODE HERE ***"
+        return self.env.make_child_frame(self.formals, args)
         # END PROBLEM 11
 
     def __str__(self):
@@ -283,6 +302,11 @@ def do_define_form(expressions, env):
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
+        name = target.first
+        formal = target.rest
+        body = expressions.rest
+        env.define(name, do_lambda_form(Pair(formal, body), env))
+        return name 
         # END PROBLEM 9
     else:
         bad_target = target.first if isinstance(target, Pair) else target
@@ -328,6 +352,8 @@ def do_lambda_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    body = expressions.rest
+    return LambdaProcedure(formals, body, env)
     # END PROBLEM 8
 
 
