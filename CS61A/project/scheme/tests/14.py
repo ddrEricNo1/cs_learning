@@ -7,23 +7,31 @@ test = {
         {
           'code': r"""
           scm> (define x 1)
-          x
+          38ba916dc1f41eb239567ee41a251ecd
+          # locked
           scm> (let ((x 5))
           ....    (+ x 3))
-          8
+          c0601ee237917e38c49efbb7371235c5
+          # locked
           scm> x
-          1
+          eb892a26497f936d1f6cae54aacc5f51
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
           scm> (let ((a 1) (b a)) b)
-          SchemeError
+          ec908af60f03727428c7ee3f22ec3cd8
+          # locked
+          # choice: SchemeError
+          # choice: 1
+          # choice: x
+          # choice: y
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
@@ -31,20 +39,23 @@ test = {
           ....    (let ((x 2)
           ....          (y x))
           ....        (+ y (* x 2))))
-          9
+          27c11fef0d1b8697654b38bb53c550c8
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
           scm> (let ((a 2) (a 3)) (+ a a)) ; how should we catch something like this?
-          SchemeError
+          ec908af60f03727428c7ee3f22ec3cd8
+          # locked
           scm> (let ((y 2 3)) (+ y y)) ; should this be an allowable form?
-          SchemeError
+          ec908af60f03727428c7ee3f22ec3cd8
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""

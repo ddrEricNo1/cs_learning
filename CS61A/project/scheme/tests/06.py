@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': 'Pair(A, nil), where: A is the quoted expression',
+          'answer': 'fd4dd892ccea3adcf9446dc4a9738d47',
           'choices': [
             r"""
             Pair('quote', Pair(A, nil)), where:
@@ -25,7 +25,7 @@ test = {
             """
           ],
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'question': 'What is the structure of the expressions argument to do_quote_form?'
         }
       ],
@@ -37,15 +37,18 @@ test = {
         {
           'code': r"""
           >>> do_quote_form(Pair(3, nil), global_frame)
-          3
+          3c7e8a3a2176a696c3a66418f78dff6b
+          # locked
           >>> do_quote_form(Pair('hi', nil), global_frame)
-          'hi'
+          95448591e64e04a7a7885d5fb9b45583
+          # locked
           >>> expr = Pair(Pair('+', Pair('x', Pair(2, nil))), nil)
           >>> do_quote_form(expr, global_frame) # Make sure to use Pair notation
-          Pair('+', Pair('x', Pair(2, nil)))
+          2301ee746b57783004f00f39498fdaed
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         }
       ],
       'scored': True,
@@ -61,18 +64,27 @@ test = {
         {
           'code': r"""
           scm> ''hello
-          (quote hello)
+          f675ad62f5f67e5229145843fd6bbcaa
+          # locked
+          # choice: (quote hello)
+          # choice: hello
+          # choice: (hello)
+          # choice: (quote (quote (hello)))
           scm> (quote (1 2))
-          (1 2)
+          484e4b42665b2864d685ef07fe666107
+          # locked
           scm> (car '(1 2 3))
-          1
+          eb892a26497f936d1f6cae54aacc5f51
+          # locked
           scm> (cdr '(1 2))
-          (2)
+          750540b47bda75ff036b4a9aa741b087
+          # locked
           scm> (eval (cons 'car '('(4 2))))
-          4
+          46beb7deeeb5e9af1c8d785b12558317
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         }
       ],
       'scored': True,
@@ -85,12 +97,22 @@ test = {
         {
           'code': r"""
           >>> read_line(" 'x ")
-          Pair('quote', Pair('x', nil))
+          d88f877a51ba10d1c3a834a690bb43e0
+          # locked
+          # choice: Pair('x', nil)
+          # choice: 'x'
+          # choice: Pair('quote', 'x')
+          # choice: Pair('quote', Pair('x', nil))
           >>> read_line(" '(a b) ")
-          Pair('quote', Pair(Pair('a', Pair('b', nil)), nil))
+          e16dd0e729d41b52ddd5d4d38cbfc7e6
+          # locked
+          # choice: Pair('a', Pair('b', nil))
+          # choice: Pair('quote', Pair(Pair('a', Pair('b', nil)), nil))
+          # choice: Pair('quote', Pair('a', 'b'))
+          # choice: Pair('quote', Pair('a', Pair('b', nil)))
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""

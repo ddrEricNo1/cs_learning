@@ -10,18 +10,21 @@ test = {
           ....       ((> 2 4) 6)
           ....       ((< 2 5) 7)
           ....       (else 8))
-          7
+          55f5a4841f9c1eacb1796dc6b0ba6ee9
+          # locked
           scm> (cond ((> 2 3) 5)
           ....       ((> 2 4) 6)
           ....       (else 8))
-          8
+          c0601ee237917e38c49efbb7371235c5
+          # locked
           scm> (cond ((= 1 1))
           ....       ((= 4 4) 'huh)
           ....       (else 'no))
-          #t
+          c65729b823194bffbccc4a162f8653bd
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         }
       ],
       'scored': True,

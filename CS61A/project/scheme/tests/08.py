@@ -7,12 +7,14 @@ test = {
         {
           'code': r"""
           scm> (lambda (x y) (+ x y))
-          (lambda (x y) (+ x y))
+          1456de84c3edf333b6f7aee0c0624b20
+          # locked
           scm> (lambda (x)) ; type SchemeError if you think this causes an error
-          SchemeError
+          ec908af60f03727428c7ee3f22ec3cd8
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
@@ -44,12 +46,14 @@ test = {
           >>> lambda_line = read_line("(lambda (a b c) (+ a b c))")
           >>> lambda_proc = do_lambda_form(lambda_line.rest, env)
           >>> lambda_proc.formals # use single quotes ' around strings in your answer
-          Pair('a', Pair('b', Pair('c', nil)))
+          d106bb7be6b014a9d16d74410be4a8a5
+          # locked
           >>> lambda_proc.body # the body is a *list* of expressions! Make sure your answer is a properly nested Pair.
-          Pair(Pair('+', Pair('a', Pair('b', Pair('c', nil)))), nil)
+          0ef147cfe5caf670e985d95d923f4b06
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""

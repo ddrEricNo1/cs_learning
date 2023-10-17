@@ -10,20 +10,22 @@ test = {
           >>> twos = Pair(2, Pair(2, nil))
           >>> plus = BuiltinProcedure(scheme_add) # + procedure
           >>> scheme_apply(plus, twos, env) # Type SchemeError if you think this errors
-          4
+          46beb7deeeb5e9af1c8d785b12558317
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
           >>> env = create_global_frame()
           >>> plus = BuiltinProcedure(scheme_add) # + procedure
           >>> scheme_apply(plus, nil, env) # Remember what (+) evaluates to in scheme
-          0
+          a384c59daad07475a000a57b0b47b74f
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
@@ -31,10 +33,11 @@ test = {
           >>> twos = Pair(2, Pair(2, nil))
           >>> oddp = BuiltinProcedure(scheme_oddp) # odd? procedure
           >>> scheme_apply(oddp, twos, env) # Type SchemeError if you think this errors
-          SchemeError
+          ec908af60f03727428c7ee3f22ec3cd8
+          # locked
           """,
           'hidden': False,
-          'locked': False
+          'locked': True
         },
         {
           'code': r"""
