@@ -73,23 +73,20 @@ test = {
           >>> read_tail(Buffer(tokenize_lines(['1 2 3)'])))
           Pair(1, Pair(2, Pair(3, nil)))
           >>> read_tail(Buffer(tokenize_lines(['2 (3 4))'])))
-          b27a7ad8eaed5119cfd16136ceb9ea5a
-          # locked
+          Pair(2, Pair(Pair(3, Pair(4, nil)), nil))
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
           >>> read_tail(Buffer(tokenize_lines(['(1 2 3)']))) # Type SyntaxError if you think this errors
-          8c2bf83bd06967ba8dd8731d41d13081
-          # locked
+          SyntaxError
           >>> read_line('((1 2 3)') # Type SyntaxError if you think this errors
-          8c2bf83bd06967ba8dd8731d41d13081
-          # locked
+          SyntaxError
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""
@@ -104,14 +101,10 @@ test = {
         {
           'code': r"""
           >>> read_line("(+ (- 2 3) 1)")
-          569af9099ed6ccade3e79b6d955b0405
-          # locked
-          # choice: Pair('+', Pair('-', Pair(2, Pair(3, Pair(1, nil)))))
-          # choice: Pair('+', Pair('-', Pair(2, Pair(3, nil))), Pair(1, nil))
-          # choice: Pair('+', Pair(Pair('-', Pair(2, Pair(3, nil))), Pair(1, nil)))
+          Pair('+', Pair(Pair('-', Pair(2, Pair(3, nil))), Pair(1, nil)))
           """,
           'hidden': False,
-          'locked': True
+          'locked': False
         },
         {
           'code': r"""

@@ -36,6 +36,10 @@ def scheme_eval(expr, env, _=None):  # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
+        operator = scheme_eval(first, env)
+        validate_procedure(operator)
+        operands = rest.map(lambda x: scheme_eval(x, env))
+        return scheme_apply(operator, operands, env)
         # END PROBLEM 4
 
 
@@ -97,12 +101,18 @@ class Frame:
         """Define Scheme SYMBOL to have VALUE."""
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        self.bindings[symbol] = value
         # END PROBLEM 2
 
     def lookup(self, symbol):
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        ptr = self
+        while ptr is not None:
+            if symbol in ptr.bindings.keys():
+                return ptr.bindings[symbol]
+            ptr = ptr.parent
         # END PROBLEM 2
         raise SchemeError('unknown identifier: {0}'.format(symbol))
 
@@ -163,6 +173,12 @@ class BuiltinProcedure(Procedure):
         arguments_list = []
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        cur = args
+        while cur is not nil:
+            arguments_list.append(cur.first)
+            cur = cur.rest
+        if self.use_env:
+            arguments_list.append(env)
         # END PROBLEM 3
         try:
             return self.fn(*arguments_list)
@@ -249,6 +265,9 @@ def do_define_form(expressions, env):
         validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 5
         "*** YOUR CODE HERE ***"
+        outcome = scheme_eval(expressions.rest.first, env)
+        env.define(target, outcome)
+        return target
         # END PROBLEM 5
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 9
@@ -269,6 +288,7 @@ def do_quote_form(expressions, env):
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
+    return expressions.first
     # END PROBLEM 6
 
 
