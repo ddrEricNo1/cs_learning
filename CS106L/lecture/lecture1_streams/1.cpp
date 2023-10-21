@@ -11,7 +11,7 @@ int main() {
 
 	// one thing to notice is that, the type of 16.9 is double, sringsream takes whaatever type you give to it and automatically 
 	// converts that type to the string represenation of that type.
-	oss << 16.9 << "Ounce ";	// when we open a stringstream, it opens it at the beginning, so it will overwrite what in the initial stream
+	oss << 16.9 << " Ounce ";	// when we open a stringstream, it opens it at the beginning, so it will overwrite what in the initial stream
 	cout << oss.str() << endl;
 
 	// an option is to add one attribute stringstream:ate, which means open a stream at the end
@@ -21,5 +21,13 @@ int main() {
 
 	oss << "(Pack of " << 12 << ")";
 	cout << oss.str() << endl;
+	
+	istringstream iss(oss.str());
+	double amount;
+	string unit;
+	// istringstream will read to the next whitespace
+	iss >> amount >> unit;
+	cout << "amount: "<< amount << endl;
+	cout << "unit: " << unit << endl;
 	return 0;
 }
