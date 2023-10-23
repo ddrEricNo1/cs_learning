@@ -1,3 +1,12 @@
+/*
+	When should I use a stringstream?
+	1. Processing strings
+		- simplify "/ ./a /b /..." to "/a"
+	2. Formatting input/output 
+		- uppercase, hex and other stream manipulators
+	3. Parsing different types
+		- stringToInteger() 
+*/
 #include <sstream>
 #include <iostream>
 using namespace std;
