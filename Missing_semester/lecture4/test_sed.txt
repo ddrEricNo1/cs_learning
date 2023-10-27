@@ -1,0 +1,4 @@
+Jan 17 08:49:00 thesquareplant.com sshd[2744]: Disconnected from invalid user wp-user 89.134.42.194 port 38866 [preauth]
+
+Jan 17 03:13:00 thesquareplanet.com sshd[2631]: Disconnected from invalid user Disconnected from 46.97.239.16 port 55920 [preauth]
+
