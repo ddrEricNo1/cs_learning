@@ -1,0 +1,10 @@
+10月 28 11:03:40 eric-Dell systemd[1233]: Startup finished in 662ms.
+10月 28 11:03:44 eric-Dell systemd[1]: Startup finished in 8.008s (firmware) + 1.904s (loader) + 1.633s (kernel) + 7.058s (userspace) = 18.605s.
+10月 28 11:04:14 eric-Dell systemd[2072]: Startup finished in 409ms.
+10月 28 11:05:32 eric-Dell systemd[2371]: Startup finished in 527ms.
+10月 28 09:39:13 eric-Dell systemd[1184]: Startup finished in 810ms.
+10月 28 09:39:17 eric-Dell systemd[1]: Startup finished in 9.208s (firmware) + 2.112s (loader) + 1.760s (kernel) + 12.680s (userspace) = 25.763s.
+10月 28 09:39:22 eric-Dell systemd[2066]: Startup finished in 380ms.
+10月 27 12:39:37 eric-Dell systemd[1237]: Startup finished in 767ms.
+10月 27 12:39:39 eric-Dell systemd[1]: Startup finished in 5.858s (firmware) + 2.002s (loader) + 1.641s (kernel) + 6.263s (userspace) = 15.764s.
+10月 27 12:40:15 eric-Dell systemd[2065]: Startup finished in 359ms.
