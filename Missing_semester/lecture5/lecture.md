@@ -29,3 +29,15 @@ If we start a job by adding **nohup**, it means that that process cannot be hang
 
 **SIGKILL is a signal that cannot be processed by the program**
 
+
+## Windows Multiplexer
+**tmux**
+
+three important concepts in **tmux**:
+
+* sessions
+* windows
+* panes
+
+## dotfiles
+
