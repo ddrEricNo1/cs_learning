@@ -40,4 +40,10 @@ three important concepts in **tmux**:
 * panes
 
 ## dotfiles
+Basically, they are all config files
+
+## Remote Machines
+
+**ssh**
+
 
