@@ -5,7 +5,12 @@ import signal, time
 def handler(signum, time):
     print("\nI got a SIGINT, but I am not stopping")
 
+def handler1(signum, time):
+	print("\n I got a SIGQUIT, but I am not stopping")
+
 signal.signal(signal.SIGINT, handler)
+signal.signal(signal.SIGQUIT, handler1)
+
 i = 0
 while True:
     time.sleep(1)
