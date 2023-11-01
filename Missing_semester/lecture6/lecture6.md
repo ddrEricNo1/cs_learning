@@ -119,6 +119,8 @@ Version control systems are tools used to keep track changes to source code (or 
    * git mergetool: use a fancy tool to help resolve merge conflicts
    * git rebase: rebase set of patches onto a new base
 
+When executing the command git merge, the prompt may display the message "fast forward", which means that you are at a particular commit and you merge some other branch in where that other branch has the current commit as a predecessor. It's not necessary to create any new snapshots or do any other fancy stuff basically, the pointer which pointed to the branch **master** can directly point to the new branch instead.
+
    **Remotes**
 
    * git remote: list remotes
