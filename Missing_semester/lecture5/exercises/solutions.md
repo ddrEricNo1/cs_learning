@@ -17,4 +17,17 @@ pgrep sleep | wait;ls
 
 However, this strategy will fail if we start in a different bash session, since **wait** only works for child processes. One feature we did not discuss in the notes is that the **kill** command's exit status will be zero on success and nonzero otherwise. **kill -0** doesn't send a signal but will give a nonzero exit status if the process doesn't exist. Write a bash function called **pidwait** that takes a pid and waits until the given process completes. You should use **sleep** to avoid wasting cpu unnecessarily. 
 
+```shell
+pidwait()
+{
+    while kill -0 $1
+    do
+        sleep 1
+    done
+    ls
+}
+```
 
+Why is it **kill -0 $PID"** instead of **until kill -0 $PID**?
+
+In Shell, any error code **0** indicates that the command has completed successfully, any non-zero error code indicates that there was an error.
