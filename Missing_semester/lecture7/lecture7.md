@@ -2,6 +2,14 @@
 
 ## Debugging
 
+logging: create the logs and record when some things happen
+
+client-side error
+
+in UNIX system, loggers are placed at **/var/log**
+
+**lnav**: log file navigator
+
 pyflakes: static analysis tool
 
 ## Profiling
