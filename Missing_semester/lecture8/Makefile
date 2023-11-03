@@ -6,4 +6,3 @@ plot-%.png: %.dat plot.py
 
 
 
-
