@@ -15,8 +15,7 @@ int main() {
 	ostringstream oss("Ito En Green Tea");	// construct oss with the string parameter as the initial string
 	cout << oss.str() << endl;	// take whatever in the stream array and output it	
 
-	// one thing to notice is that, the type of 16.9 is double, sringsream takes whaatever type you give to it and automatically 
-	// converts that type to the string represenation of that type.
+	// one thing to notice is that, the type of 16.9 is double, sringsream takes whaatever type you give to it and automatically converts that type to the string represenation of that type.
 	oss << 16.9 << " Ounce ";	// when we open a stringstream, it opens it at the beginning, so it will overwrite what in the initial stream
 	cout << oss.str() << endl;
 
