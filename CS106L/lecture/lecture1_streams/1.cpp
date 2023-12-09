@@ -1,11 +1,17 @@
 #include <sstream>	// for string stream
 #include <iostream>
 
+/*
+differences between istringstream and ostringstream:
+istringstream: 用于从字符串中读取数据
+ostringstream: 用于将数据输出到字符串
+*/
+
 using namespace std;
 
 int main() {
 	// output string stream
-	// coonstructors with initial text in the buffer. can optionally provide modes such as ate(start at end) or bin(read as binary)
+	// constructors with initial text in the buffer. can optionally provide modes such as ate(start at end) or bin(read as binary)
 	ostringstream oss("Ito En Green Tea");	// construct oss with the string parameter as the initial string
 	cout << oss.str() << endl;	// take whatever in the stream array and output it	
 

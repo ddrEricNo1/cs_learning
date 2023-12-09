@@ -35,14 +35,17 @@ int main() {
 	while (true) {
 		cout << "> ";
 		string response = GetLine();
+		// if the user doesn't input any messages into the terminal, the while loop will terminate
 		if (response.empty()) break;
 		std::istringstream stream(response);
 		string word;
 		while (stream >> word) {
-			frequencyMap[word];	// automatically create an entry and default initialize it. while the api at() will check whether the key exists, if doesn't, it will throw an error
+			frequencyMap[word];	// automatically create an entry and default initialize it. 
+			// while the api at() will check whether the key exists, if doesn't, it will throw an error
 			++frequencyMap[word];
 		}
 	}
+
 	cout << "Enter words to look up" << endl;
 	while (true) {
 		cout << "> ";

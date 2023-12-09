@@ -1,0 +1,10 @@
+# ninja log v5
+0	2	0	/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/cmake.verify_globs	6656c5a8768fb93a
+0	153	1702088299403575606	codes_autogen/timestamp	9634f22ce0c74f2b
+0	153	1702088299403575606	codes_autogen/mocs_compilation.cpp	9634f22ce0c74f2b
+0	153	1702088299403575606	/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/codes_autogen/timestamp	9634f22ce0c74f2b
+0	153	1702088299403575606	/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/codes_autogen/mocs_compilation.cpp	9634f22ce0c74f2b
+153	1115	1702088300363546869	CMakeFiles/codes.dir/codes_autogen/mocs_compilation.cpp.o	78d3bf851b1b97c5
+153	1157	1702088300407545552	CMakeFiles/codes.dir/main.cpp.o	11079a1a619aaa3d
+153	1158	1702088300407545552	CMakeFiles/codes.dir/mainwindow.cpp.o	ee4b9ec34c14aadc
+1158	1351	1702088300599539807	codes	393e19adb78c7416

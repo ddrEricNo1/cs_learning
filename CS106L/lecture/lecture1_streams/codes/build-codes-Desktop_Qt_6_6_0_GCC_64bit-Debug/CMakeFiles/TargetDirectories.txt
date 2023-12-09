@@ -1,0 +1,9 @@
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/codes.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/edit_cache.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/rebuild_cache.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/list_install_components.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/install.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/install/local.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/install/strip.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/codes_autogen_timestamp_deps.dir
+/home/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture1_streams/codes/build-codes-Desktop_Qt_6_6_0_GCC_64bit-Debug/CMakeFiles/codes_autogen.dir
