@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/eric/Desktop/cs_learning/CS61A/lecture/lecture29",
-      "program": "/Users/eric/Desktop/cs_learning/CS61A/lecture/lecture29/build/Debug/outDebug"
+      "cwd": "/Users/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture6_templates",
+      "program": "/Users/eric/Desktop/Fighting/cs_learning/CS106L/lecture/lecture6_templates/build/Debug/outDebug"
     }
   ]
 }
