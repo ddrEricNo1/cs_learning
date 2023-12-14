@@ -11,7 +11,7 @@ SOURCES += $$PWD/src/*.cpp
 HEADERS += $$PWD/src/*.h
 
 # set up flags for the compiler and Stanford C++ libraries
-QMAKE_CXXFLAGS += -std=c++11 \
+QMAKE_CXXFLAGS += -std=c++17 \
     -Wall \
     -Wextra \
     -Wreturn-type \
