@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 struct Course {
 	std::string name;
